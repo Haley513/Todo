@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,20 +7,31 @@
     <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-  <div class="container">
-    <h1>My Best To Do List</h1>
-    <div class="input-group">
-        <input type="text" id="todo-title" placeholder="할 일 제목">
-        <select id="todo-priority">
-            <option value="low">낮음</option>
-            <option value="medium">보통</option>
-            <option value="high">높음</option>
-        </select>
-        <textarea id="todo-details" placeholder="할 일 세부 내용"></textarea>
-        <button id="add-todo">추가</button>
+    <div class="container">
+        <h1>My Best To Do List</h1>
+        <div class="input-group">
+            <input type="text" id="todo-title" placeholder="할 일을 작성하세요.">
+            <textarea id="todo-details" placeholder="세부내용을 작성하세요."></textarea>
+            <select id="todo-priority">
+                <option value="낮음">낮음</option>
+                <option value="보통">보통</option>
+                <option value="높음">높음</option>
+            </select>
+            <button id="add-todo">입력하기</button>
+        </div>
+        <ul id="todo-list"></ul>
     </div>
-    <ul id="todo-list"></ul>
-</div>
-<script src="scripts/main.js"></script>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modal-title"></h2>
+            <p id="modal-details"></p>
+            <p id="modal-priority"></p>
+            <p id="modal-status"></p>
+        </div>
+    </div>
+
+    <script src="scripts/main.js"></script>
 </body>
 </html>
