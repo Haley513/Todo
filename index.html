@@ -1,11 +1,26 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Best To Do List</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Best To Do List</title>
+    <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-  
+  <div class="container">
+    <h1>My Best To Do List</h1>
+    <div class="input-group">
+        <input type="text" id="todo-title" placeholder="할 일 제목">
+        <select id="todo-priority">
+            <option value="low">낮음</option>
+            <option value="medium">보통</option>
+            <option value="high">높음</option>
+        </select>
+        <textarea id="todo-details" placeholder="할 일 세부 내용"></textarea>
+        <button id="add-todo">추가</button>
+    </div>
+    <ul id="todo-list"></ul>
+</div>
+<script src="scripts/main.js"></script>
 </body>
 </html>
