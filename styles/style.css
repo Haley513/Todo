@@ -97,7 +97,7 @@ li {
 }
 
 li.completed {
-  background-color: #d3ffd3;
+  background-color: #e1eeff;
   text-decoration: line-through;
   color: grey;
 }
