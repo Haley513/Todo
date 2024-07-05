@@ -30,6 +30,18 @@ h1 {
   margin-bottom: 20px;
 }
 
+.priority-and-button {
+  display: flex;
+  align-items: center;
+  olign-items: center;
+}
+
+select, button {
+  flex: 1;
+  margin: 0 5px;
+  width: auto;
+}
+
 input, textarea, select, button {
   padding: 10px;
   font-size: 16px;
@@ -37,9 +49,10 @@ input, textarea, select, button {
   border-radius: 5px;
   outline: none;
   transition: all 0.3s ease;
+
 }
 
-input, select, button {
+input {
   width: calc(100% - px);
 }
 
@@ -69,6 +82,7 @@ button:hover {
 ul {
   list-style-type: none;
   padding: 0;
+  
 }
 
 li {
