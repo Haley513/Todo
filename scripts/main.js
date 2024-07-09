@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const todoList = document.getElementById("todo-list");
 
   const modal = document.getElementById("modal");
-  const closeModalButton = document.getElementsByClassName("close")[0];
+  const closeModalButton = document. getElementById("close-btn");
   const modalTitle = document.getElementById("modal-title");
   const modalDetails = document.getElementById("modal-details");
   const modalPriority = document.getElementById("modal-priority");
@@ -26,6 +26,9 @@ document.addEventListener("DOMContentLoaded", function () {
               <button class="delete-btn" onclick="deleteTodo(${index})">삭제</button>
               </div>
             `;
+            const completeBtn = li.querySelector(".complete-btn");
+            completeBtn.style.width = completeBtn.offsetWidth + "px";
+
             todoList.appendChild(li);
 
       });
@@ -83,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
   addTodoButton.addEventListener("click", addTodo);
   closeModalButton.addEventListener("click", closeModal);
 
-  window.onclick = function (event) {
+  window.onclick = function(event) {
     if (event.target === modal) {
       closeModal();
     }

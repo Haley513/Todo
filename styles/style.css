@@ -98,18 +98,17 @@ li {
 
 li.completed {
   background-color: #e1eeff;
-  text-decoration: line-through;
   color: grey;
 }
 
-li span {
+li.span {
   flex-grow: 1;
   cursor: pointer;
 }
 
 .button-group {
   display: flex;
-  gap: 5px;
+  gap: 3px;
 }
 
 .button-group button {
@@ -118,6 +117,19 @@ li span {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  white-space: nowrap;
+  min-width: 70px;
+  writing-mode: horizontal-tb;
+  text-align: center;
+  margin-right: 3px;
+}
+
+.button-group button:last-child {
+  margin-right: 0;
+}
+
+li.completed span {
+  text-decoration: line-through;
 }
 
 .button-group button.complete-btn {
@@ -156,18 +168,20 @@ li span {
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
+  max-width: 400px;
   border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.close {
+.close-btn {
   color: #aaa;
   float: right;
   font-size: 28px;
   font-weight: bold;
 }
 
-.close:hover,
-.close:focus {
+.close-btn:hover,
+.close-btn:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
