@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function clearInputs() {
     todoTitle.value = "";
     todoDetails.value = "";
-    todoPriority.value = "낮음";
+    todoPriority.value = "";
 
   }
 
