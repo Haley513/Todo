@@ -110,24 +110,6 @@ document.addEventListener("DOMContentLoaded", function () {
     modal.style.display = "none";
   }
 
-  const todoDeadlinePlaceholder = "마감일자를 선택해주세요. (필수아님)";
-  todoDeadline.value = todoDeadlinePlaceholder; 
-  todoDeadline.style.color = "#999";
-
-  todoDeadline.addEventListener("focus", () => {
-    if (todoDeadline.value === todoDeadlinePlaceholder) {
-        todoDeadline.value = "";
-        todoDeadline.style.color = ""; 
-    }
-});
-
-todoDeadline.addEventListener("blur", () => {
-    if (todoDeadline.value === "") {
-        todoDeadline.value = todoDeadlinePlaceholder;
-        todoDeadline.style.color = ""; 
-    }
-});
-
   addTodoButton.addEventListener("click", addTodo);
   closeModalButton.addEventListener("click", function(event) {
     closeModal();
