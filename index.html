@@ -12,8 +12,7 @@
         <div class="input-group">
             <input type="text" id="todo-title" placeholder="할 일을 작성하세요.">
             <textarea id="todo-details" placeholder="세부내용을 작성하세요."></textarea>
-            <label for="todo-deadline">마감일자를 선택해주세요. (필수아님)</label>
-            <input type="date" id="todo-deadline">
+            <input type="text" id="todo-deadline" placeholder="마감일자를 선택해주세요. (필수아님)" onfocus="(this.type='date')" onblur="(this.type='text')" autocomplete="off">
             <div class="priority-and-button"> 
             <select id="todo-priority" class="placeholder">
                 <option value="" disabled selected>중요도를 설정하세요.</option>
