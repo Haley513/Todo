@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   const todoTitle = document.getElementById("todo-title");
   const todoDetails = document.getElementById("todo-details");
+  const todoDeadline = document.getElementById("todo-deadline");
   const todoPriority = document.getElementById("todo-priority");
   const addTodoButton = document.getElementById("add-todo");
   const todoList = document.getElementById("todo-list");
@@ -10,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const modalTitle = document.getElementById("modal-title");
   const modalDetails = document.getElementById("modal-details");
   const modalPriority = document.getElementById("modal-priority");
+  const modalDeadline = document.getElementById("modal-deadline");
   const modalStatus = document.getElementById("modal-status");
 
   let todos = [];
@@ -24,7 +26,19 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function renderTodos() {
-      todos.sort((a, b)=> getpriorityValue(b.priority) - getpriorityValue(a.priority));
+      todos.sort((a, b)=> {
+        const priorityDiff = getpriorityValue(b.priority) - getpriorityValue(a.priority);
+        if (priorityDiff !== 0) return priorityDiff;
+        if (a.deadline && b.deadline) {
+          return new Date(a.deadline) - new Date(b.deadline);
+        } else if (a.deadline) {
+          return -1;
+        } else if (b.deadline) {
+          return 1;
+        }
+        return 0;
+      });
+      
       todoList.innerHTML = "";
       todos.forEach(function (todo, index) {
           const li = document.createElement("li");
@@ -55,6 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const newTodo = {
         title: todoTitle.value,
         details: todoDetails.value,
+        deadline: todoDeadline.value || null,
         priority: todoPriority.value,
         status: "pending"
       };
@@ -66,6 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function clearInputs() {
     todoTitle.value = "";
     todoDetails.value = "";
+    todoDeadline.value = "";
     todoPriority.value = "";
 
   }
@@ -85,10 +101,10 @@ document.addEventListener("DOMContentLoaded", function () {
     modalTitle.textContent = `제목: ${todo.title}`;
     modalDetails.textContent = `세부내용: ${todo.details}`;
     modalPriority.textContent = `우선순위: ${todo.priority}`;
+    modalDeadline.textContent = `마감날짜: ${todo.deadline ? todo.deadline : '없음'}`;
     modalStatus.textContent = `상태: ${todo.status === "completed" ? "완료됨" : "진행중"}`;
     modal.style.display = "block";
-  
-  }
+  };
 
   function closeModal() {
     modal.style.display = "none";
