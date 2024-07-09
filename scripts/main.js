@@ -18,7 +18,12 @@ document.addEventListener("DOMContentLoaded", function () {
       todoList.innerHTML = "";
       todos.forEach(function (todo, index) {
           const li = document.createElement("li");
-          li.className = todo.status === "completed" ? "completed" : "";
+          li.classList.add("list-item");
+          if (todo.status === "completed") {
+            li.classList.add("completed");
+          } else {
+            li.classList.remove("completed");
+          }
           li.innerHTML = `
             <span onclick="openModal(${index})">${todo.title} - ${todo.priority}</span>
             <div class="button-group">
@@ -26,15 +31,6 @@ document.addEventListener("DOMContentLoaded", function () {
               <button class="delete-btn" onclick="deleteTodo(${index})">삭제</button>
               </div>
             `;
-
-            const completeBtn = li.querySelector(".complete-btn");
-            const styles = getComputedStyle(completeBtn);
-            const paddingLeft = parseInt(styles.getPropertyValue('padding-left'),10);
-            const paddingRight = parseInt(styles.getPropertyValue('padding-right'),10);
-            const borderLeft = parseInt(styles.getPropertyValue('border-left-width'),10);
-            const borderRight = parseInt(styles.getPropertyValue('border-right-width'),10);
-            const totalWidth = completeBtn.offsetWidth + paddingLeft + paddingRight + borderLeft + borderRight;
-            completeBtn.style.width = totalWidth + "px";
 
             todoList.appendChild(li);
       });
@@ -67,8 +63,6 @@ document.addEventListener("DOMContentLoaded", function () {
   window.toggleComplete = function (index) {
     todos[index].status = todos[index].status === "completed" ? "pending" : "completed";
     renderTodos();
-    const completeBtn = todoList.children[index].querySelector(".complete-btn");
-    completeBtn.disabled = todos[index].status === "completed";
   };
 
   window.deleteTodo = function (index) {
