@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const todoList = document.getElementById("todo-list");
 
   const modal = document.getElementById("modal");
-  const closeModalButton = document. getElementById("close-btn");
+  const closeModalButton = document.getElementById("close-btn");
   const modalTitle = document.getElementById("modal-title");
   const modalDetails = document.getElementById("modal-details");
   const modalPriority = document.getElementById("modal-priority");
@@ -26,13 +26,18 @@ document.addEventListener("DOMContentLoaded", function () {
               <button class="delete-btn" onclick="deleteTodo(${index})">삭제</button>
               </div>
             `;
+
             const completeBtn = li.querySelector(".complete-btn");
-            completeBtn.style.width = completeBtn.offsetWidth + "px";
+            const styles = getComputedStyle(completeBtn);
+            const paddingLeft = parseInt(styles.getPropertyValue('padding-left'),10);
+            const paddingRight = parseInt(styles.getPropertyValue('padding-right'),10);
+            const borderLeft = parseInt(styles.getPropertyValue('border-left-width'),10);
+            const borderRight = parseInt(styles.getPropertyValue('border-right-width'),10);
+            const totalWidth = completeBtn.offsetWidth + paddingLeft + paddingRight + borderLeft + borderRight;
+            completeBtn.style.width = totalWidth + "px";
 
             todoList.appendChild(li);
-
       });
-
   }
 
   function addTodo() {
@@ -62,6 +67,8 @@ document.addEventListener("DOMContentLoaded", function () {
   window.toggleComplete = function (index) {
     todos[index].status = todos[index].status === "completed" ? "pending" : "completed";
     renderTodos();
+    const completeBtn = todoList.children[index].querySelector(".complete-btn");
+    completeBtn.disabled = todos[index].status === "completed";
   };
 
   window.deleteTodo = function (index) {
@@ -84,7 +91,10 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   addTodoButton.addEventListener("click", addTodo);
-  closeModalButton.addEventListener("click", closeModal);
+  closeModalButton.addEventListener("click", function(event) {
+    closeModal();
+    event.stopPropagation();
+  });
 
   window.onclick = function(event) {
     if (event.target === modal) {

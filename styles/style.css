@@ -101,9 +101,8 @@ li.completed {
   color: grey;
 }
 
-li.span {
-  flex-grow: 1;
-  cursor: pointer;
+li.completed span {
+  text-decoration: line-through;
 }
 
 .button-group {
