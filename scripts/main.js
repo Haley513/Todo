@@ -14,7 +14,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let todos = [];
 
+  function getpriorityValue(priority) {
+    switch(priority) {
+      case '높음': return 3;
+      case '보통': return 2;
+      case '낮음': return 1;
+      default: return 0;
+    }
+  }
+
   function renderTodos() {
+      todos.sort((a, b)=> getpriorityValue(b.priority) - getpriorityValue(a.priority));
       todoList.innerHTML = "";
       todos.forEach(function (todo, index) {
           const li = document.createElement("li");
