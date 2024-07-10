@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const modalDeadline = document.getElementById("modal-deadline");
   const modalStatus = document.getElementById("modal-status");
 
-  let todos = [];
+  let todos = JSON.parse(localStorage.getItem("todos")) || [];
 
   function getpriorityValue(priority) {
     switch(priority) {
@@ -121,4 +121,6 @@ document.addEventListener("DOMContentLoaded", function () {
       closeModal();
     }
   };
+
+  renderTodos();
 });
