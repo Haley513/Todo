@@ -53,10 +53,9 @@ input, textarea, select, button {
   border-radius: 5px;
   outline: none;
   transition: all 0.3s ease;
-
 }
 
-input,select,button {
+input, select, button {
   width: calc(100% - 22px);
 }
 
@@ -86,67 +85,52 @@ button:hover {
 ul {
   list-style-type: none;
   padding: 0;
-  
 }
 
 li.list-item {
+  display: flex;
+  align-items: center;
   padding: 10px;
   background: #f1f1f1;
   margin-bottom: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   border-radius: 5px;
   transition: background-color 0.3s ease;
   cursor: pointer;
-  white-space: nowrap;
+  justify-content: space-between;
 }
 
 li.completed {
   background-color: #e1eeff;
-  color: grey;
+  color: gray;
 }
 
 li.completed span {
   text-decoration: line-through;
 }
 
-.button-group {
-  display: flex;
-  gap: 5px;
+li.list-item .checkbox {
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
 }
 
-.button-group button {
-  padding: 5px 10px;
+li.list-item .todo-text {
+  flex-grow: 1;
+  margin-left: 10px;
+}
+
+li.list-item .delete-btn {
+  background: none;
   border: none;
-  border-radius: 5px;
+  color: #818181;
+  font-size: 20px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  flex-grow: 1;
-  min-width: 80px;
 }
 
-.button-group button.complete-btn {
-  background-color: #2052af;
-  color: white;
-}
-
-.button-group button.complete-btn:disabled {
-  background-color: #2116c2;
-  cursor: default;
-}
-
-.button-group button.complete-btn:hover {
-  background-color: #2116c2;
-}
-
-.button-group button.delete-btn {
-  background-color: #dc3591;
-  color: white;
-}
-
-.button-group button.delete-btn:hover {
-  background-color: #c9302c;
+li.list-item .delete-btn:hover {
+  color: #c9302c;
 }
 
 .modal {
@@ -175,10 +159,10 @@ li.completed span {
 .close-btn {
   color: #aaa;
   float: right;
-  font-size: 28px;
+  font-size: 20px;
   font-weight: bold;
 }
-
+ 
 .close-btn:hover,
 .close-btn:focus {
   color: black;
@@ -194,6 +178,6 @@ select option {
   color: #000;
 }
 
-select option[:disabled] {
+select option:disabled {
   color: #757373;
 }

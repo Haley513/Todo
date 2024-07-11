@@ -25,19 +25,23 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  function saveTodos() {
+    localStorage.setItem("todos",JSON.stringify(todos));
+  }
+
   function renderTodos() {
-      todos.sort((a, b)=> {
-        const priorityDiff = getpriorityValue(b.priority) - getpriorityValue(a.priority);
-        if (priorityDiff !== 0) return priorityDiff;
-        if (a.deadline && b.deadline) {
-          return new Date(a.deadline) - new Date(b.deadline);
-        } else if (a.deadline) {
-          return -1;
-        } else if (b.deadline) {
-          return 1;
-        }
-        return 0;
-      });
+    todos.sort((a, b) => {
+      const priorityDiff = getpriorityValue(b.priority) - getpriorityValue(a.priority);
+      if (priorityDiff !== 0) return priorityDiff;
+      if (a.deadline && b.deadline) {
+        return new Date(a.deadline) - new Date(b.deadline);
+      } else if (a.deadline) {
+        return -1;
+      } else if (b.deadline) {
+        return 1;
+      }
+      return 0;
+    });
       
       todoList.innerHTML = "";
       todos.forEach(function (todo, index) {
@@ -49,10 +53,10 @@ document.addEventListener("DOMContentLoaded", function () {
             li.classList.remove("completed");
           }
           li.innerHTML = `
-            <span onclick="openModal(${index})">${todo.title} - ${todo.priority}</span>
+            <input type="checkbox" class="complete-checkbox checkbox" onchange="toggleComplete(${index})" ${todo.status === "completed" ? "checked" : ""}>
+            <span class="todo-text" onclick="openModal(${index})">${todo.title} - ${todo.priority}</span>
             <div class="button-group">
-              <button class="complete-btn" onclick="toggleComplete(${index})">${todo.status === "completed" ? "진행중" : "완료"}</button>
-              <button class="delete-btn" onclick="deleteTodo(${index})">삭제</button>
+              <button class="delete-btn" onclick="deleteTodo(${index})">X</button>
               </div>
             `;
 
@@ -74,6 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
         status: "pending"
       };
       todos.push(newTodo);
+      saveTodos();
       renderTodos();
       clearInputs();
   }
@@ -88,11 +93,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
   window.toggleComplete = function (index) {
     todos[index].status = todos[index].status === "completed" ? "pending" : "completed";
+    saveTodos();
     renderTodos();
   };
 
   window.deleteTodo = function (index) {
     todos.splice(index, 1);
+    saveTodos();
     renderTodos();
   };
 
