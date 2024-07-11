@@ -25,6 +25,23 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  function getpriorityStars(priority) {
+    switch(priority) {
+      case '높음': return '★★★';
+      case '보통': return '★★';
+      case '낮음': return '★';
+      default: return '';
+    }
+  }
+
+  function formatDate(dateStr) {
+    const date = new Date(dateStr);
+    const year = date.getFullYear().toString().slice(-2);
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${year}.${month}.${day}`;
+  }
+
   function saveTodos() {
     localStorage.setItem("todos",JSON.stringify(todos));
   }
@@ -52,11 +69,17 @@ document.addEventListener("DOMContentLoaded", function () {
           } else {
             li.classList.remove("completed");
           }
+
+          let todoText = `${getpriorityStars(todo.priority)} ${todo.title}`;
+          if (todo.deadline) {
+            todoText += `  (${formatDate(todo.deadline)})`;
+          }
+
           li.innerHTML = `
             <input type="checkbox" class="complete-checkbox checkbox" onchange="toggleComplete(${index})" ${todo.status === "completed" ? "checked" : ""}>
-            <span class="todo-text" onclick="openModal(${index})">${todo.title} - ${todo.priority}</span>
+            <span class="todo-text" onclick="openModal(${index})">${todoText}</span>
             <div class="button-group">
-              <button class="delete-btn" onclick="deleteTodo(${index})">X</button>
+              <button class="delete-btn" onclick="deleteTodo(${index})">x</button>
               </div>
             `;
 
@@ -107,8 +130,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const todo = todos[index];
     modalTitle.textContent = `제목: ${todo.title}`;
     modalDetails.textContent = `세부내용: ${todo.details}`;
-    modalPriority.textContent = `우선순위: ${todo.priority}`;
-    modalDeadline.textContent = `마감날짜: ${todo.deadline ? todo.deadline : '없음'}`;
+    modalPriority.textContent = `우선순위: ${getpriorityStars(todo.priority)}`;
+    modalDeadline.textContent = `마감날짜: ${todo.deadline ? formatDate(todo.deadline) : '없음'}`;
     modalStatus.textContent = `상태: ${todo.status === "completed" ? "완료됨" : "진행중"}`;
     modal.style.display = "block";
   };
