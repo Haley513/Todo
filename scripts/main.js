@@ -8,13 +8,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const modal = document.getElementById("modal");
   const closeModalButton = document.getElementById("close-btn");
+  const saveChangesButton = document.getElementById("save-changes");
+  const editButton = document.getElementById("edit-btn");
   const modalTitle = document.getElementById("modal-title");
   const modalDetails = document.getElementById("modal-details");
   const modalPriority = document.getElementById("modal-priority");
   const modalDeadline = document.getElementById("modal-deadline");
-  const modalStatus = document.getElementById("modal-status");
+  const modalStatus = document.getElementById("modal-status");  
+  const viewTitle = document.getElementById("view-title");
+  const viewDetails = document.getElementById("view-details");
+  const viewPriority = document.getElementById("view-priority");
+  const viewDeadline = document.getElementById("view-deadline");
+  const viewStatus = document.getElementById("view-status");
+
+  const viewMode = document.getElementById("view-mode");
+  const editMode = document.getElementById("edit-mode");  
 
   let todos = JSON.parse(localStorage.getItem("todos")) || [];
+  let currentIndex = null;
 
   function getpriorityValue(priority) {
     switch(priority) {
@@ -88,8 +99,8 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function addTodo() {
-    if (todoTitle.value.trim() === "" || todoDetails.value.trim() === "") {
-      alert("제목과 세부내용을 입력하세요.");
+    if (todoTitle.value.trim() === "" || todoDetails.value.trim() === "" || todoPriority.value === "") {
+      alert("제목, 세부내용, 중요도는 필수 입력 항목입니다.");
       return;
     }
 
@@ -128,16 +139,52 @@ document.addEventListener("DOMContentLoaded", function () {
 
   window.openModal = function (index) {
     const todo = todos[index];
-    modalTitle.textContent = `제목: ${todo.title}`;
-    modalDetails.textContent = `세부내용: ${todo.details}`;
-    modalPriority.textContent = `우선순위: ${getpriorityStars(todo.priority)}`;
-    modalDeadline.textContent = `마감날짜: ${todo.deadline ? formatDate(todo.deadline) : '없음'}`;
-    modalStatus.textContent = `상태: ${todo.status === "completed" ? "완료됨" : "진행중"}`;
+    currentIndex = index;
+  
+    viewTitle.textContent = `${todo.title}`;
+    viewTitle.style.fontSize = '20px';
+    viewTitle.style.fontWeight = 'bold';
+    viewDetails.textContent = `${todo.details}`;
+    viewPriority.textContent = `우선순위: ${getpriorityStars(todo.priority)}`;
+    viewDeadline.textContent = `마감날짜: ${todo.deadline ? formatDate(todo.deadline) : '없음'}`;
+    viewStatus.textContent = `상태: ${todo.status === "completed" ? "완료됨" : "진행중"}`;
+    
+    modalTitle.value = todo.title;
+    modalDetails.value = todo.details;
+    modalPriority.value = todo.priority;
+    modalDeadline.value = todo.deadline || '';
+    modalStatus.value = todo.status;
+
+    viewMode.style.display = "block";
+    editMode.style.display = "none";
     modal.style.display = "block";
+
+    editButton.classList.add('modal-button');
+    saveChangesButton.classList.add('modal-button');
+
   };
+
+  editButton.addEventListener("click", function () {
+    viewMode.style.display = 'none';
+    editMode.style.display = 'block';
+  });
+
+  saveChangesButton.addEventListener("click", function () {
+    if (currentIndex !== null) {
+      todos[currentIndex].title = modalTitle.value;
+      todos[currentIndex].details = modalDetails.value;
+      todos[currentIndex].priority = modalPriority.value;
+      todos[currentIndex].deadline = modalDeadline.value;
+      todos[currentIndex].status = modalStatus.value;
+      saveTodos();
+      renderTodos();
+      closeModal();
+    }
+  });
 
   function closeModal() {
     modal.style.display = "none";
+    currentIndex = null;
   }
 
   addTodoButton.addEventListener("click", addTodo);
