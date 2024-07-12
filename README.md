@@ -2,9 +2,7 @@
 
 ## 프로젝트 정의
 
-|   |
-|:----------:|
-|  ![Mybesttodolist](./images/main.PNG) | 
+![Mybesttodolist](./images/main.PNG) 
 
 
 **My Best To Do List**는 사용자의 할일 목록을 만들어 할일을 명확하게 정의하여 할일을 잊지않게 계획하고 효과적으로 모두 완료할 수 있도록 도와주는 것을 목적으로 합니다. 이 프로젝트는 웹 브라우저에서 실행되는 간단한 웹 페이지입니다.
